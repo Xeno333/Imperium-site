@@ -1,0 +1,29 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+main {
+    padding: 20px;
+}
+.server-info, .server-rules, .footer {
+    margin-bottom: 20px;
+}
+.server-info h2, .server-rules h2 {
+    color: #444;
+}
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}

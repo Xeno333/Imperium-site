@@ -22,7 +22,7 @@ main {
 .server-info, .server-rules, .footer {
     margin-bottom: 20px;
 }
-.server-info h2, .server-rules h2 {
+h2 {
     color: #111;
 }
 .footer {

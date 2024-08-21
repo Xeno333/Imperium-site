@@ -15,11 +15,44 @@
     </header>
 
     <main>
-        <div id="status">Loading...</div>
-        <div id="players"></div>
+        <p>Online: </p>
+        <div id="players">Loading...</div>
 
-        <script>
-        </script>
+    <script>
+        async function fetchData(name) {
+            try {
+                const response = await fetch('https://servers.minetest.net/list');
+                const data = await response.json();
+
+                const players = document.getElementById('players');
+                players.innerHTML = "";
+
+                data.list.forEach(server => {
+                    if (server.clients_list) {
+                        if (server.name == name) {
+                            server.clients_list.forEach(player => {
+                                var next = document.createElement('li');
+                                next.textContent = "\t" + player;
+
+                                // Append the paragraph to the div
+                                players.appendChild(next);
+                            });
+                        }
+                    }
+                });
+
+
+                createTable(filteredData);
+                error.textContent = '';
+                resetCountdown();
+            } catch (error) {
+                error.textContent = 'Error fetching data:' + error;
+            }
+        }
+
+        // Fetch server status when the page loads
+        fetchData("Imperium");
+    </script>
 
         <section class="server-info">
             <h2>Server Information</h2>

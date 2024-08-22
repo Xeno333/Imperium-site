@@ -12,6 +12,7 @@
 <body>
     <header>
         <h1 id="title">Welcome to the Imperium Server!</h1>
+        <h3 id="Playercount"></h3>
     </header>
 
     <main>
@@ -28,6 +29,7 @@
                 const status = document.getElementById('status');
 
                 var found = false;
+                var Playercount = 0;
 
                 data.list.forEach(server => {
                     if (server.name) {
@@ -38,6 +40,7 @@
                         if (server.clients_list) {
                             if (server.name == name) {
                                 server.clients_list.forEach(player => {
+                                    Playercount++;
                                     var next = document.createElement('li');
                                     next.textContent = "\t" + player;
 
@@ -53,6 +56,8 @@
                     var textElement = document.getElementById('title');
                     textElement.style.color = 'red';
                 }
+                var Playercount_el = document.getElementById('Playercount');
+                Playercount_el.innerHTML = "No. of players online: " + Playercount;
 
             } catch (error) {
                 console.log('Error fetching data:' + error);

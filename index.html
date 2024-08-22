@@ -24,27 +24,33 @@
 
                 const players = document.getElementById('players');
                 players.innerHTML = "";
+                const status = document.getElementById('status');
+
+                var found = false;
 
                 data.list.forEach(server => {
-                    if (server.clients_list) {
-                        if (server.name == name) {
-                            server.clients_list.forEach(player => {
-                                var next = document.createElement('li');
-                                next.textContent = "\t" + player;
+                    if (server.name) {
+                        found = true;
+                        status.innerHTML = "Online:";
+                        if (server.clients_list) {
+                            if (server.name == name) {
+                                server.clients_list.forEach(player => {
+                                    var next = document.createElement('li');
+                                    next.textContent = "\t" + player;
 
-                                // Append the paragraph to the div
-                                players.appendChild(next);
-                            });
+                                    // Append the paragraph to the div
+                                    players.appendChild(next);
+                                });
+                            }
                         }
                     }
                 });
+                if (found == false) {
+                    status.innerHTML = "Offline";
+                }
 
-
-                createTable(filteredData);
-                error.textContent = '';
-                resetCountdown();
             } catch (error) {
-                error.textContent = 'Error fetching data:' + error;
+                console.log('Error fetching data:' + error);
             }
         }
 
@@ -64,7 +70,7 @@
         <br>
 
         <section class="online">
-            <h2>Online: </h2>
+            <h2><div id="status">Loading...</div></h2>
             <div id="players">Loading...</div>
         </section>
 

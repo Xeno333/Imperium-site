@@ -51,6 +51,11 @@ ul {
     padding: 0;
 }
 
+txt {
+    list-style-type: none;
+    padding: 0;
+}
+
 ul li {
     padding: 10px 0;
     border-bottom: 1px solid #444;

@@ -18,6 +18,7 @@
     <main>
         <section class="server-info">
             <h2>Server Information</h2>
+            <p><strong>Server Rank: </strong><txt id="rank">Loading...</txt></p>
             <p><strong>Server Name:</strong> Imperium</p>
             <p><strong>IP Address:</strong> 47.221.239.68</p>
             <p><strong>Port:</strong> 30031</p>
@@ -63,8 +64,12 @@
 
                 var found = false;
                 var Playercount = 0;
+                var rank = 0;
 
                 data.list.forEach(server => {
+                    if (!found) {
+                        rank++;
+                    }
                     if (server.name == name) {
                         found = true;
                         status.innerHTML = "Online:";
@@ -83,11 +88,19 @@
                 if (!found) {
                     status.innerHTML = "Offline";
                     document.getElementById('title').style.color = 'red';
+                    document.getElementById('rank').innerHTML = 'N/A';
+                    document.getElementById('Playercount').innerHTML = `No. of players online: N/A`;
                 }
-                document.getElementById('Playercount').innerHTML = `No. of players online: ${Playercount}`;
+                else {
+                    document.getElementById('rank').innerHTML = rank;
+                    document.getElementById('Playercount').innerHTML = `No. of players online: ${Playercount}`;
+                }
 
             } catch (error) {
                 console.log('Error fetching data:' + error);
+                document.getElementById('title').style.color = 'red';
+                document.getElementById('rank').innerHTML = 'N/A';
+                document.getElementById('Playercount').innerHTML = `No. of players online: N/A`;
             }
         }
 

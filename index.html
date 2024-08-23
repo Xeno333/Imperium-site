@@ -92,7 +92,7 @@
                     document.getElementById('Playercount').innerHTML = `No. of players online: N/A`;
                 }
                 else {
-                    document.getElementById('rank').innerHTML = rank;
+                    document.getElementById('rank').innerHTML = rank + "/" + data.list.length;
                     document.getElementById('Playercount').innerHTML = `No. of players online: ${Playercount}`;
                 }
 

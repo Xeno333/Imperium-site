@@ -24,34 +24,12 @@
     </header>
 
     <main>
-        <section id="server-info" class="server-info">
-            <h2>Server Information</h2>
-            <p><strong>Server Rank: </strong><txt id="rank">Loading...</txt></p>
-            <p><strong>Server Name:</strong> Imperium</p>
-            <p><strong>IP Address:</strong> 47.221.239.68</p>
-            <p><strong>Port:</strong> 30031</p>
-            <p><strong>Game:</strong> Mineclonia (Minetest 5.10.0-dev)</p>
-            <p><strong>Game Mode:</strong> Survival/PvP</p>
-        </section>
 
-        <section id="online" class="online">
-            <h2><div id="status">Loading...</div></h2>
-            <div id="players">Loading...</div>
-        </section>
+        <figure class="image-container">
+            <img src="content/image.png" alt="Server Image" class="responsive-image">
+            <figcaption>A preview of Season 2!</figcaption>
+        </figure>
 
-        <section id="server-rules" class="server-rules">
-            <h2>Server Rules</h2>
-            <ul>
-                <li>No excessive swearing/insulting - mute max 1 day, kick, ban max 7 days</li>
-                <li>No NSFW content - Ban (30 day or perm)</li>
-                <li>No disrespecting staff while they are on an admin account - mute (max 1 hour)</li>
-                <li>No spamming - mute 1 hour</li>
-                <li>Keep chats in the correct channel - mute for 1 hour</li>
-                <li>Follow all rules on signs in-game</li>
-                <li>No possession of non-natural or duped items without admin/dev role - ban 30 days</li>
-                <li>Don't ask admins for items or to trade - mute 30 min or kick</li>
-            </ul>
-        </section>
     </main>
 
     <footer>
@@ -66,28 +44,16 @@
                 const response = await fetch('https://servers.minetest.net/list');
                 const data = await response.json();
 
-                const players = document.getElementById('players');
-                players.innerHTML = "";
-                const status = document.getElementById('status');
-
                 var found = false;
                 var Playercount = 0;
-                var rank = 0;
 
                 data.list.forEach(server => {
-                    if (!found) {
-                        rank++;
-                    }
                     if (server.name == name) {
                         found = true;
-                        status.innerHTML = "Online:";
                         document.getElementById('title').style.color = 'lightgreen';
                         if (server.clients_list) {
                             server.clients_list.forEach(player => {
                                 Playercount++;
-                                var next = document.createElement('li');
-                                next.textContent = player;
-                                players.appendChild(next);
                             });
                         }
                     }
@@ -96,18 +62,15 @@
                 if (!found) {
                     status.innerHTML = "Offline";
                     document.getElementById('title').style.color = 'red';
-                    document.getElementById('rank').innerHTML = 'N/A';
                     document.getElementById('Playercount').innerHTML = `No. of players online: N/A`;
                 }
                 else {
-                    document.getElementById('rank').innerHTML = rank + "/" + data.list.length;
                     document.getElementById('Playercount').innerHTML = `No. of players online: ${Playercount}`;
                 }
 
             } catch (error) {
                 console.log('Error fetching data:' + error);
                 document.getElementById('title').style.color = 'red';
-                document.getElementById('rank').innerHTML = 'N/A';
                 document.getElementById('Playercount').innerHTML = `No. of players online: N/A`;
             }
         }

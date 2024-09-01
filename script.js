@@ -93,7 +93,12 @@ async function update_banner() {
 function extractPlayer(matchString) {
     // Assumes the format is always "Found partial match: player, on: server.name"
     const matchParts = matchString.split(", on: ");
-    const playerPart = matchParts[0].replace("Found partial match: ", "");
+    var playerPart;
+    if (matchParts[0].startsWith("Found partial match: ")) 
+        playerPart = matchParts[0].replace("Found partial match: ", "");
+    else if (matchParts[0].startsWith("Found exact match: ")) 
+        playerPart = matchParts[0].replace("Found exact match: ", "");
+
     return playerPart;
 }
 

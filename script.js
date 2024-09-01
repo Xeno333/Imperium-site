@@ -90,17 +90,6 @@ async function update_banner() {
     }
 }
 
-function extractPlayer(matchString) {
-    // Assumes the format is always "Found partial match: player, on: server.name"
-    const matchParts = matchString.split(", on: ");
-    var playerPart;
-    if (matchParts[0].startsWith("Found partial match: ")) 
-        playerPart = matchParts[0].replace("Found partial match: ", "");
-    else if (matchParts[0].startsWith("Found exact match: ")) 
-        playerPart = matchParts[0].replace("Found exact match: ", "");
-
-    return playerPart;
-}
 
 async function find_player(pname_o) {
     var pname = pname_o.toLowerCase()
@@ -112,10 +101,10 @@ async function find_player(pname_o) {
         var Playercount = 0;
         var Servercount = 0;
         var ServerMcount = 0;
-        var foundc = 0;
         const results = document.getElementById('results');
 
         var res = [];
+        var res_e = [];
 
         data.list.forEach(server => {
             Servercount++;
@@ -130,12 +119,11 @@ async function find_player(pname_o) {
                                 ServerMcount++;
                             }
                             found = true;
-                            foundc++;
                             if (player == pname_o) {
-                                res.push("Found exact match: " + player + ", on: " + server.name)
+                                res_e.push([player, server.name])
                             }
                             else {
-                                res.push("Found partial match: " + player + ", on: " + server.name);
+                                res.push([player, server.name]);
                             }
                         }
                     });
@@ -143,18 +131,20 @@ async function find_player(pname_o) {
             }
         });
 
-        for (let i = 0; i < res.length - 1; i++) {
+        
+        for (let i = 0; i < res.length; i++) {
             for (let j = 0; j < res.length - 1; j++) {
-                var n = extractPlayer(res[j+1])
-                if (n.toLowerCase().startsWith(pname)) {
-                    let temp = res[j];
-                    if (!extractPlayer(res[j]).startsWith(pname_o)) {
-                        res[j] = res[j + 1];
-                        res[j + 1] = temp;
-                    }
+                var n = res[j+1][0]
+                let temp = res[j];
+                if (n.toLowerCase().startsWith(pname) && res[j][0].toLowerCase() != pname) {
+                    res[j] = res[j + 1];
+                    res[j + 1] = temp;
                 }
             }
         }
+
+
+        res = res_e.concat(res)
         
         
         results.innerHTML = "";
@@ -164,7 +154,7 @@ async function find_player(pname_o) {
         else
             next = document.createElement('seachinfobad');
 
-        next.textContent = "[Searched " + Servercount + " servers: results in " + ServerMcount + ", searched " + Playercount + " players: " + foundc + " matches found]";
+        next.textContent = "[Searched " + Servercount + " servers: results in " + ServerMcount + ", searched " + Playercount + " players: " + (res_e.length+res.length) + " matches found]";
         results.appendChild(next);
 
         if (found) {
@@ -173,7 +163,7 @@ async function find_player(pname_o) {
         
         res.forEach(e => {
             var next = document.createElement('li');
-            next.textContent = e;
+            next.textContent = "Found " + e[0] + ", on " + e[1];
             results.appendChild(next);
         });
         

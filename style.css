@@ -32,7 +32,7 @@ main {
     color: #f4f4f4;
 }
 
-.server-info, .server-rules, .online {
+.text-container {
     margin-bottom: 40px;
     background-color: #222;
     padding: 20px;
@@ -103,6 +103,32 @@ nav ul li a:hover {
     color: #3282b8;
 }
 
+/* Basic styling for the search bar */
+.search-container {
+    display: flex;
+    justify-content: center; /* Horizontally centers the div */
+    align-items: center;    /* Vertically centers the div */
+    max-width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+.search-box {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+}
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+seachinfogood {
+    color: lightgreen;
+}
+seachinfobad {
+    color: lightcoral;
+}
 
 /* Responsive Image */
 .responsive-image {

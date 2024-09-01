@@ -44,47 +44,10 @@
         <p>Join our Discord at: <a href="https://discord.gg/nAqE7gPTaj" target="_blank">Join Now</a></p>
     </footer>
 
+    <script src="script.js"></script>
     <script>
-        async function fetchData() {
-            const name = "Imperium";
-            try {
-                const response = await fetch('https://servers.minetest.net/list');
-                const data = await response.json();
-
-                var found = false;
-                var Playercount = 0;
-
-                data.list.forEach(server => {
-                    if (server.name == name) {
-                        found = true;
-                        document.getElementById('title').style.color = 'lightgreen';
-                        if (server.clients_list) {
-                            server.clients_list.forEach(player => {
-                                Playercount++;
-                            });
-                        }
-                    }
-                });
-
-                if (!found) {
-                    status.innerHTML = "Offline";
-                    document.getElementById('title').style.color = 'red';
-                    document.getElementById('Playercount').innerHTML = `No. of players online: N/A`;
-                }
-                else {
-                    document.getElementById('Playercount').innerHTML = `No. of players online: ${Playercount}`;
-                }
-
-            } catch (error) {
-                console.log('Error fetching data:' + error);
-                document.getElementById('title').style.color = 'red';
-                document.getElementById('Playercount').innerHTML = `No. of players online: N/A`;
-            }
-        }
-
-        fetchData();
-        setInterval(fetchData, 5000);
+        update_banner();
+        setInterval(update_banner, 5000);
     </script>
-
 </body>
 </html>

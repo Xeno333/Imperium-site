@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Imperium Server</title>
+</head>
+
+<body>
+    <header>
+        <h1 id="title">Welcome to the Imperium Server!</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html#server-info">Server Info</a></li>
+                <li><a href="index.html#online">Online Players</a></li>
+                <li><a href="index.html#server-rules">Server Rules</a></li>
+                <li><a href="content.html">Content</a></li>
+            </ul>
+        </nav>
+        <h3 id="Playercount"></h3>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-box" placeholder="Search all servers for player...">
+            <button id="search-button" class="search-button">Search</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="text-container">
+            <div id="results">Seach someone!</div>
+        </section>
+    </main>
+
+    <br>
+    <br>
+    <br>
+
+    <footer>
+        <p>&copy; 2024 Xeno333. All rights reserved.</p>
+        <p>Join our Discord at: <a href="https://discord.gg/nAqE7gPTaj" target="_blank">Join Now</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        update_banner();
+        setInterval(update_banner, 5000);
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get references to the search input and button
+            const searchInput = document.getElementById("search-input");
+            const searchButton = document.getElementById("search-button");
+
+            // Add an event listener to the button
+            searchButton.addEventListener("click", function() {
+                // Get the value of the search input
+                const query = searchInput.value.trim();
+
+                // Check if the search input is not empty
+                if (query) {
+                    find_player(query)
+                }
+            });
+
+            // Optionally, handle "Enter" key press on the input field
+            searchInput.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    searchButton.click();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

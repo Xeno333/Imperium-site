@@ -97,6 +97,14 @@ async function find_player(pname_o) {
         const response = await fetch(serverlist);
         const data = await response.json();
 
+        var ss = false;
+        var ss_l = [];
+
+        if (pname.startsWith("[server]")) {
+            pname = pname.replace("[server]", "").trim();
+            ss = true;
+        }
+
         var found = false;
         var Playercount = 0;
         var Servercount = 0;
@@ -110,7 +118,14 @@ async function find_player(pname_o) {
             Servercount++;
             var serverm = false;
             if (Array.isArray(server.clients_list)) {
-                if (!(server.clients_list.length === 0)) {
+                if (ss) {
+                    if (server.name.toLowerCase().includes(pname)) {
+                        found = true;
+                        ServerMcount++;
+                        ss_l.push([server.name, server.clients_list])
+                    }
+                }
+                else if (!(server.clients_list.length === 0)) {
                     
                     server.clients_list.forEach(player => {
                         Playercount++;
@@ -138,44 +153,70 @@ async function find_player(pname_o) {
             }
         });
 
-        if (pname != "*") {
-            for (let i = 0; i < res.length; i++) {
-                for (let j = 0; j < res.length - 1; j++) {
-                    var n = res[j+1][0]
-                    let temp = res[j];
-                    if (n.toLowerCase().startsWith(pname) && res[j][0].toLowerCase() != pname) {
-                        res[j] = res[j + 1];
-                        res[j + 1] = temp;
+        if (ss) {
+            results.innerHTML = "";
+            var next
+            if (found)
+                next = document.createElement('seachinfogood');
+            else
+                next = document.createElement('seachinfobad');
+
+            next.textContent = "[Searched " + Servercount + " servers: results in " + ServerMcount + ", searched " + Playercount + " players: " + res.length + " matches found]";
+            results.appendChild(next);
+
+            ss_l.forEach(([n, l]) => {
+                var next_m = document.createElement('h3');
+                var next_m1 = document.createElement('lightgreen-text');
+                next_m1.textContent = "Found: " + n;
+                next_m.appendChild(next_m1);
+                results.appendChild(next_m);
+                l.forEach(e => {
+                    var next = document.createElement('li');
+                    next.textContent = e;
+                    next_m.appendChild(next);
+                });
+            });
+        }
+        else if (!ss) {
+            if (pname != "*") {
+                for (let i = 0; i < res.length; i++) {
+                    for (let j = 0; j < res.length - 1; j++) {
+                        var n = res[j+1][0]
+                        let temp = res[j];
+                        if (n.toLowerCase().startsWith(pname) && res[j][0].toLowerCase() != pname) {
+                            res[j] = res[j + 1];
+                            res[j + 1] = temp;
+                        }
                     }
                 }
+
+                res = res_e.concat(res)
             }
+            else {
+                res.reverse()
+            }
+            
+            
+            results.innerHTML = "";
+            var next
+            if (found)
+                next = document.createElement('seachinfogood');
+            else
+                next = document.createElement('seachinfobad');
 
-            res = res_e.concat(res)
-        }
-        else {
-            res.reverse()
-        }
-        
-        
-        results.innerHTML = "";
-        var next
-        if (found)
-            next = document.createElement('seachinfogood');
-        else
-            next = document.createElement('seachinfobad');
-
-        next.textContent = "[Searched " + Servercount + " servers: results in " + ServerMcount + ", searched " + Playercount + " players: " + res.length + " matches found]";
-        results.appendChild(next);
-
-        if (found) {
-            results.innerHTML += "\n";
-        }
-        
-        res.forEach(e => {
-            var next = document.createElement('li');
-            next.textContent = "Found " + e[0] + ", on " + e[1];
+            next.textContent = "[Searched " + Servercount + " servers: results in " + ServerMcount + ", searched " + Playercount + " players: " + res.length + " matches found]";
             results.appendChild(next);
-        });
+
+            if (found) {
+                results.innerHTML += "\n";
+            }
+            
+            res.forEach(e => {
+                var next = document.createElement('li');
+                next.textContent = "Found " + e[0] + ", on " + e[1];
+                results.appendChild(next);
+            });
+        }
         
     } catch (error) {
         console.log('Error fetching data:' + error);

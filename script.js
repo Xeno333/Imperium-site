@@ -111,40 +111,50 @@ async function find_player(pname_o) {
             var serverm = false;
             if (Array.isArray(server.clients_list)) {
                 if (!(server.clients_list.length === 0)) {
+                    
                     server.clients_list.forEach(player => {
                         Playercount++;
+                        if (pname == "*") {
+                            found = true;
+                            res.push([player, server.name]);
+                            if (serverm == false) {
+                                serverm = true;
+                                ServerMcount++;
+                            }
+                        }
                         if (player.toLowerCase().includes(pname)) {
                             if (serverm == false) {
                                 serverm = true;
                                 ServerMcount++;
                             }
                             found = true;
-                            if (player == pname_o) {
-                                res_e.push([player, server.name])
-                            }
-                            else {
+                            if (player == pname_o)
+                                res_e.push([player, server.name]);
+                            else
                                 res.push([player, server.name]);
-                            }
                         }
                     });
                 }
             }
         });
 
-        
-        for (let i = 0; i < res.length; i++) {
-            for (let j = 0; j < res.length - 1; j++) {
-                var n = res[j+1][0]
-                let temp = res[j];
-                if (n.toLowerCase().startsWith(pname) && res[j][0].toLowerCase() != pname) {
-                    res[j] = res[j + 1];
-                    res[j + 1] = temp;
+        if (pname != "*") {
+            for (let i = 0; i < res.length; i++) {
+                for (let j = 0; j < res.length - 1; j++) {
+                    var n = res[j+1][0]
+                    let temp = res[j];
+                    if (n.toLowerCase().startsWith(pname) && res[j][0].toLowerCase() != pname) {
+                        res[j] = res[j + 1];
+                        res[j + 1] = temp;
+                    }
                 }
             }
+
+            res = res_e.concat(res)
         }
-
-
-        res = res_e.concat(res)
+        else {
+            res.reverse()
+        }
         
         
         results.innerHTML = "";
@@ -154,7 +164,7 @@ async function find_player(pname_o) {
         else
             next = document.createElement('seachinfobad');
 
-        next.textContent = "[Searched " + Servercount + " servers: results in " + ServerMcount + ", searched " + Playercount + " players: " + (res_e.length+res.length) + " matches found]";
+        next.textContent = "[Searched " + Servercount + " servers: results in " + ServerMcount + ", searched " + Playercount + " players: " + res.length + " matches found]";
         results.appendChild(next);
 
         if (found) {

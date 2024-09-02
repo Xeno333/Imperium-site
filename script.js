@@ -120,6 +120,7 @@ async function find_player(pname_o) {
             if (Array.isArray(server.clients_list)) {
                 if (ss) {
                     if (server.name.toLowerCase().includes(pname)) {
+                        Playercount += server.clients_list.length;
                         found = true;
                         ServerMcount++;
                         ss_l.push([server.name, server.clients_list])
@@ -161,7 +162,7 @@ async function find_player(pname_o) {
             else
                 next = document.createElement('seachinfobad');
 
-            next.textContent = "[Searched " + Servercount + " servers: results in " + ServerMcount + ", searched " + Playercount + " players: " + res.length + " matches found]";
+            next.textContent = "[Searched " + Servercount + " servers: results in " + ServerMcount + ", searched " + Playercount + " players: " + Playercount + " matches found]";
             results.appendChild(next);
 
             ss_l.forEach(([n, l]) => {

@@ -41,11 +41,6 @@ async function update_info() {
         }
         else {
             document.getElementById('Playercount').innerHTML = " " + serverg.clients + " of " + serverg.clients_max;
-            const lag = Math.round(serverg.lag*1000 * 10) / 10;
-            if (isNaN(lag)) 
-                document.getElementById('Playercount').innerHTML = ` N/A`;
-            else
-                document.getElementById('lag').innerHTML = " " + lag + " ms";
 
             document.getElementById('address').innerHTML = " " + serverg.address;
             document.getElementById('port').innerHTML = "" + serverg.port;

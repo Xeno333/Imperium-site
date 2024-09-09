@@ -40,6 +40,16 @@ async function update_info() {
             document.getElementById('serverversion').innerHTML = " N/A";
         }
         else {
+            try {
+                serverg.clients_list.forEach(e => {
+                    var next = document.createElement('li');
+                    next.textContent = e;
+                    players.appendChild(next);
+                });
+            } catch (error) {
+                players.innerHTML = "";
+            }
+
             document.getElementById('Playercount').innerHTML = " " + serverg.clients + " of " + serverg.clients_max;
             const lag = Math.round(serverg.lag*1000 * 10) / 10;
             if (isNaN(lag)) 

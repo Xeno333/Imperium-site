@@ -36,13 +36,13 @@ async function update_info() {
             document.getElementById('rank').innerHTML = ' N/A';
             document.getElementById('address').innerHTML = ' N/A';
             document.getElementById('port').innerHTML = ' N/A';
+            document.getElementById('game').innerHTML = " N/A";
             document.getElementById('serverversion').innerHTML = " N/A";
-            document.getElementById('rank').innerHTML = 'N/A';
         }
         else {
             document.getElementById('Playercount').innerHTML = " " + serverg.clients + " of " + serverg.clients_max;
             const lag = Math.round(serverg.lag*1000 * 10) / 10;
-            if (lag == NaN) 
+            if (isNaN(lag)) 
                 document.getElementById('Playercount').innerHTML = ` N/A`;
             else
                 document.getElementById('lag').innerHTML = " " + lag + " ms";
@@ -63,8 +63,8 @@ async function update_info() {
         document.getElementById('rank').innerHTML = ' N/A';
         document.getElementById('address').innerHTML = ' N/A';
         document.getElementById('port').innerHTML = ' N/A';
+        document.getElementById('game').innerHTML = " N/A";
         document.getElementById('serverversion').innerHTML = " N/A";
-        document.getElementById('rank').innerHTML = 'N/A';
     }
 }
 

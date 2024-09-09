@@ -21,7 +21,6 @@ async function update_info() {
             }
             if (server.name == servername) {
                 serverg = server
-                console.log(server)
                 found = true;
                 status.innerHTML = "Online:";
                 document.getElementById('title').style.color = 'lightgreen';

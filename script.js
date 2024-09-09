@@ -24,6 +24,13 @@ async function update_info() {
                 found = true;
                 status.innerHTML = "Online:";
                 document.getElementById('title').style.color = 'lightgreen';
+                if (server.clients_list) {
+                    server.clients_list.forEach(player => {
+                        var next = document.createElement('li');
+                        next.textContent = player;
+                        players.appendChild(next);
+                    });
+                }
             }
         });
 
@@ -40,11 +47,6 @@ async function update_info() {
             document.getElementById('serverversion').innerHTML = " N/A";
         }
         else {
-                serverg.clients_list.forEach(e => {
-                    var next = document.createElement('li');
-                    next.textContent = e;
-                    players.appendChild(next);
-                });
 
             document.getElementById('Playercount').innerHTML = " " + serverg.clients + " of " + serverg.clients_max;
             const lag = Math.round(serverg.lag*1000 * 10) / 10;

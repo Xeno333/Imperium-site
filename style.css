@@ -39,11 +39,18 @@ main {
     border-radius: 10px;
 }
 
-h2 {
+.text-container h2 {
     color: #c7f9cc;
     font-weight: 500;
     margin-bottom: 20px;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
+}
+
+.text-container h1 {
+    color: #c7f9cc;
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 2rem;
 }
 
 ul {
@@ -56,9 +63,8 @@ txt {
     padding: 0;
 }
 
-ul li {
+li {
     padding: 10px 0;
-    border-bottom: 1px solid #444;
 }
 
 ul li:last-child {
@@ -99,9 +105,6 @@ nav ul li a {
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
-    color: #3282b8;
-}
 
 /* Basic styling for the search bar */
 .search-container {
@@ -109,15 +112,19 @@ nav ul li a:hover {
     justify-content: center; /* Horizontally centers the div */
     align-items: center;    /* Vertically centers the div */
     max-width: 100%;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
 }
 .search-box {
+    border-color: lightblue;
+    border-radius: 20px;
     width: 50%;
     padding: 10px;
     font-size: 16px;
 }
 .search-button {
+    border-color: lightblue;
+    border-radius: 20px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -132,6 +139,8 @@ seachinfogood {
 seachinfobad {
     color: lightcoral;
 }
+
+
 
 /* Responsive Image */
 .responsive-image {
@@ -155,19 +164,18 @@ figcaption {
 
 
 /* Button & Hover Effects */
-a, button {
+nav ul li a, button {
     background-color: #3282b8;
-    color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 500;
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
 
-a:hover, button:hover {
+nav ul li a:hover, button:hover {
     background-color: #0f4c75;
     transform: scale(1.05);
 }
@@ -180,4 +188,38 @@ a:hover, button:hover {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+
+
+/* Other */
+.center {
+    text-align: center; /* Centers the image and caption */
+    margin: 0 auto; /* Centers the container */
+}
+
+.smaller {
+    font-size: 70%;
+}
+
+.slightly-larger {
+    font-size: 110%;
+}
+
+.indent {
+    padding-left: 3em; /* Indents by approximately 1 tab width */
+}
+
+.italic {
+    font-style: italic;
+    font-family: 'Georgia'; /* Fancier serif fonts */
+}
+
+
+.german-cursive {
+    font-family: 'UnifrakturMaguntia', cursive;
+}
+
+.lightgreen {
+    color: #c7f9cc;
 }

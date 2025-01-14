@@ -1,4 +1,4 @@
-const servername = "Imperium";
+const servername = "Life Steal";
 const serverlist = 'https://servers.minetest.net/list'
 
 
